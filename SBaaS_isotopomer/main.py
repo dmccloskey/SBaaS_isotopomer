@@ -1,13 +1,10 @@
 import sys
-sys.path.append('C:/Users/dmccloskey-sbrg/Google Drive/SBaaS_base')
-#sys.path.append('C:/Users/dmccloskey/Google Drive/SBaaS_base')
+sys.path.append('C:/Users/dmccloskey-sbrg/Documents/GitHub/SBaaS_base')
 from SBaaS_base.postgresql_settings import postgresql_settings
 from SBaaS_base.postgresql_orm import postgresql_orm
 
 # read in the settings file
-#filename = 'C:/Users/dmccloskey-sbrg/Google Drive/SBaaS_base/settings_1.ini';
-#filename = 'C:/Users/dmccloskey/Google Drive/SBaaS_base/settings_2.ini';
-filename = 'C:/Users/dmccloskey-sbrg/Google Drive/SBaaS_base/settings_metabolomics.ini';
+filename = 'C:/Users/dmccloskey-sbrg/Google Drive/SBaaS_settings/settings_metabolomics.ini';
 pg_settings = postgresql_settings(filename);
 
 # connect to the database from the settings file
@@ -45,28 +42,36 @@ normalized01 = stage01_isotopomer_normalized_execute(session,engine,pg_settings.
 #        scan_type_I='EPI',
 #        met_id_I='%')
 #export spectrums to js
-#TODO: bug in plots
-normalized01.export_dataStage01IsotopomerNormalized_js('ALEsKOs01',
-    sample_name_abbreviations_I=[
-        "OxicEvo04sdhCBEvo01EPEcoli13CGlc",
-    ],
-    met_ids_I=[],
-    scan_types_I=[],
-    single_plot_I = False,
-    );
-
-##make the averages methods tables
-#from SBaaS_isotopomer.stage01_isotopomer_averages_execute import stage01_isotopomer_averages_execute
-#ave01 = stage01_isotopomer_averages_execute(session,engine,pg_settings.datadir_settings);
-#ave01.import_dataStage01IsotopomerAveragesNormSum_updateUsedAndComment('C:/Users/dmccloskey-sbrg/Desktop/dataStage01IsotopomerAveragesNormSum_WTEColi_113C80_U13C20_01_update.csv');
-## export the spectrums to .js
-#ave01.export_dataStage01IsotopomerAveragesNormSum_csv('WTEColi_113C80_U13C20_01',pg_settings.datadir_settings['workspace_data']+'/_output/WTEColi_113C80_U13C20_01_averagesNormSum.csv');
-#ave01.export_dataStage01IsotopomerAveragesNormSum_js('WTEColi_113C80_U13C20_01',
-#    sample_name_abbreviations_I=[],
+##TODO: bug in plots
+#normalized01.export_dataStage01IsotopomerNormalized_js('ALEsKOs01',
+#    sample_name_abbreviations_I=[
+#        "OxicEvo04sdhCBEvo01EPEcoli13CGlc",
+#    ],
 #    met_ids_I=[],
 #    scan_types_I=[],
 #    single_plot_I = False,
 #    );
+
+#make the averages methods tables
+from SBaaS_isotopomer.stage01_isotopomer_averages_execute import stage01_isotopomer_averages_execute
+ave01 = stage01_isotopomer_averages_execute(session,engine,pg_settings.datadir_settings);
+#ave01.import_dataStage01IsotopomerAveragesNormSum_updateUsedAndComment('C:/Users/dmccloskey-sbrg/Desktop/dataStage01IsotopomerAveragesNormSum_WTEColi_113C80_U13C20_01_update.csv');
+## export the spectrums to .js
+#ave01.export_dataStage01IsotopomerAveragesNormSum_csv('WTEColi_113C80_U13C20_01',pg_settings.datadir_settings['workspace_data']+'/_output/WTEColi_113C80_U13C20_01_averagesNormSum.csv');
+# plot specific scan-types and met_ids
+ave01.export_dataStage01IsotopomerAveragesNormSum_js('ALEsKOs01',
+    sample_name_abbreviations_I=[
+     "OxicEvo04ptsHIcrrEcoli13CGlc",
+     "OxicEvo04ptsHIcrrEvo01EPEcoli13CGlc",
+    ],
+#     met_ids_I=[
+#         #'fad',
+#          'pyr',
+#          'phpyr',
+#     ],
+    #scan_types_I=['EPI'],
+    single_plot_I = False,
+    );
 
 
 

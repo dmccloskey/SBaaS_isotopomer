@@ -45,18 +45,17 @@ class stage01_isotopomer_averages_io(stage01_isotopomer_averages_query,sbaas_tem
         for tp in time_points:
             print('Plotting product and precursor for time-point ' + str(tp));
             # get sample names and sample name abbreviations
+            sample_abbreviations = [];
+            sample_types = ['Unknown'];
+            sample_types_lst = [];
+            for st in sample_types:
+                sample_abbreviations_tmp = [];
+                sample_abbreviations_tmp = self.get_sampleNameAbbreviations_experimentIDAndSampleTypeAndTimePoint_dataStage01AveragesNormSum(experiment_id_I,st,tp);
+                sample_abbreviations.extend(sample_abbreviations_tmp);
+                sample_types_lst.extend([st for i in range(len(sample_abbreviations_tmp))]);
             if sample_name_abbreviations_I:
-                sample_abbreviations = sample_name_abbreviations_I;
+                sample_abbreviations = [sna for sna in sample_abbreviations if sna in sample_name_abbreviations_I];
                 sample_types_lst = ['Unknown' for x in sample_abbreviations];
-            else:
-                sample_abbreviations = [];
-                sample_types = ['Unknown'];
-                sample_types_lst = [];
-                for st in sample_types:
-                    sample_abbreviations_tmp = [];
-                    sample_abbreviations_tmp = self.get_sampleNameAbbreviations_experimentIDAndSampleTypeAndTimePoint_dataStage01AveragesNormSum(experiment_id_I,st,tp);
-                    sample_abbreviations.extend(sample_abbreviations_tmp);
-                    sample_types_lst.extend([st for i in range(len(sample_abbreviations_tmp))]);
             for sna_cnt,sna in enumerate(sample_abbreviations):
                 print('Plotting product and precursor for sample name abbreviation ' + sna);
                 data_dict_O[sna] = [];
@@ -134,18 +133,17 @@ class stage01_isotopomer_averages_io(stage01_isotopomer_averages_query,sbaas_tem
         for tp in time_points:
             print('Tabulating product and precursor for time-point ' + str(tp));
             # get sample names and sample name abbreviations
+            sample_abbreviations = [];
+            sample_types = ['Unknown'];
+            sample_types_lst = [];
+            for st in sample_types:
+                sample_abbreviations_tmp = [];
+                sample_abbreviations_tmp = self.get_sampleNameAbbreviations_experimentIDAndSampleTypeAndTimePoint_dataStage01AveragesNormSum(experiment_id_I,st,tp);
+                sample_abbreviations.extend(sample_abbreviations_tmp);
+                sample_types_lst.extend([st for i in range(len(sample_abbreviations_tmp))]);
             if sample_name_abbreviations_I:
-                sample_abbreviations = sample_name_abbreviations_I;
+                sample_abbreviations = [sna for sna in sample_abbreviations if sna in sample_name_abbreviations_I];
                 sample_types_lst = ['Unknown' for x in sample_abbreviations];
-            else:
-                sample_abbreviations = [];
-                sample_types = ['Unknown'];
-                sample_types_lst = [];
-                for st in sample_types:
-                    sample_abbreviations_tmp = [];
-                    sample_abbreviations_tmp = self.get_sampleNameAbbreviations_experimentIDAndSampleTypeAndTimePoint_dataStage01AveragesNormSum(experiment_id_I,st,tp);
-                    sample_abbreviations.extend(sample_abbreviations_tmp);
-                    sample_types_lst.extend([st for i in range(len(sample_abbreviations_tmp))]);
             for sna_cnt,sna in enumerate(sample_abbreviations):
                 print('Tabulating product and precursor for sample name abbreviation ' + sna);
                 # get the scan_types
